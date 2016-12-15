@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.14
+-- version 4.5.5.1
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 24 aug 2016 kl 12:39
--- Serverversion: 5.6.17
--- PHP-version: 5.5.12
+-- Tid vid skapande: 15 dec 2016 kl 16:07
+-- Serverversion: 5.7.11
+-- PHP-version: 5.6.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Databas: `pizza`
@@ -26,12 +26,11 @@ SET time_zone = "+00:00";
 -- Tabellstruktur `ingredienser`
 --
 
-CREATE TABLE IF NOT EXISTS `ingredienser` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ingredienser` (
+  `id` int(11) NOT NULL,
   `namn` varchar(255) NOT NULL,
-  `typ` enum('Grönsaker','Kött','Sås','Kryddor','Skaldjur','Annat','Ost') NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=50 ;
+  `typ` enum('Grönsaker','Kött','Sås','Kryddor','Skaldjur','Annat','Ost') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumpning av Data i tabell `ingredienser`
@@ -44,7 +43,7 @@ INSERT INTO `ingredienser` (`id`, `namn`, `typ`) VALUES
 (4, 'Ananas', 'Grönsaker'),
 (5, 'Räkor', 'Skaldjur'),
 (6, 'Champinjoner', 'Grönsaker'),
-(7, 'Tonfisk', 'Kött'),
+(7, 'Tonfisk', 'Skaldjur'),
 (8, 'Banan', 'Grönsaker'),
 (9, 'Lök', 'Grönsaker'),
 (10, 'Paprika', 'Grönsaker'),
@@ -58,18 +57,18 @@ INSERT INTO `ingredienser` (`id`, `namn`, `typ`) VALUES
 (18, 'Kebabkött', 'Kött'),
 (19, 'Sås', 'Sås'),
 (20, 'Köttfärssås', 'Kött'),
-(21, 'Vitlök', 'Grönsaker'),
+(21, 'Vitlök', 'Kryddor'),
 (22, 'Musslor', 'Skaldjur'),
 (23, 'Pepperoni', 'Kryddor'),
 (24, 'Bearnaisesås', 'Sås'),
 (25, 'Färska champinjoner', 'Grönsaker'),
-(26, 'Gorgonzola', 'Grönsaker'),
+(26, 'Gorgonzola', 'Ost'),
 (27, 'Jalapeno', 'Kryddor'),
 (28, 'Tacosås', 'Sås'),
 (29, 'Isbergsallad', 'Grönsaker'),
 (30, 'Mozzarella', 'Ost'),
 (31, 'Salladsost', 'Ost'),
-(32, 'Riddarost', 'Grönsaker'),
+(32, 'Riddarost', 'Ost'),
 (33, 'Färska tomater', 'Grönsaker'),
 (34, 'Chili', 'Kryddor'),
 (35, 'Permesanost', 'Ost'),
@@ -94,12 +93,11 @@ INSERT INTO `ingredienser` (`id`, `namn`, `typ`) VALUES
 -- Tabellstruktur `ingrediens_lista`
 --
 
-CREATE TABLE IF NOT EXISTS `ingrediens_lista` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ingrediens_lista` (
+  `id` int(11) NOT NULL,
   `pizza` int(11) NOT NULL,
-  `ingrediens` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=65 ;
+  `ingrediens` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumpning av Data i tabell `ingrediens_lista`
@@ -169,7 +167,15 @@ INSERT INTO `ingrediens_lista` (`id`, `pizza`, `ingrediens`) VALUES
 (61, 14, 4),
 (62, 14, 3),
 (63, 14, 2),
-(64, 14, 1);
+(64, 14, 1),
+(65, 15, 22),
+(66, 15, 2),
+(67, 15, 30),
+(68, 15, 1),
+(69, 15, 36),
+(70, 15, 13),
+(71, 15, 33),
+(72, 15, 6);
 
 -- --------------------------------------------------------
 
@@ -177,20 +183,19 @@ INSERT INTO `ingrediens_lista` (`id`, `pizza`, `ingrediens`) VALUES
 -- Tabellstruktur `pizzerior`
 --
 
-CREATE TABLE IF NOT EXISTS `pizzerior` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `namn` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+CREATE TABLE `pizzerior` (
+  `name` varchar(255) NOT NULL,
+  `opening` time NOT NULL,
+  `closing` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumpning av Data i tabell `pizzerior`
 --
 
-INSERT INTO `pizzerior` (`id`, `namn`) VALUES
-(1, 'biblos'),
-(2, 'prima'),
-(3, 'evergren');
+INSERT INTO `pizzerior` (`name`, `opening`, `closing`) VALUES
+('Biblos', '11:00:00', '22:00:00'),
+('Hi life', '11:00:00', '02:00:00');
 
 -- --------------------------------------------------------
 
@@ -198,11 +203,10 @@ INSERT INTO `pizzerior` (`id`, `namn`) VALUES
 -- Tabellstruktur `pizzor`
 --
 
-CREATE TABLE IF NOT EXISTS `pizzor` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `namn` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+CREATE TABLE `pizzor` (
+  `id` int(11) NOT NULL,
+  `namn` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumpning av Data i tabell `pizzor`
@@ -222,7 +226,116 @@ INSERT INTO `pizzor` (`id`, `namn`) VALUES
 (11, 'HV-71'),
 (12, 'Tropicana'),
 (13, 'Kyckling Pizza'),
-(14, 'Chiquita');
+(14, 'Chiquita'),
+(15, 'Hi Life-pizzan');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellstruktur `pizzor_in_pizzerias`
+--
+
+CREATE TABLE `pizzor_in_pizzerias` (
+  `pizzeria` varchar(255) NOT NULL,
+  `pizza` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumpning av Data i tabell `pizzor_in_pizzerias`
+--
+
+INSERT INTO `pizzor_in_pizzerias` (`pizzeria`, `pizza`) VALUES
+('Biblos', 1),
+('Hi life', 1),
+('Biblos', 2),
+('Hi life', 2),
+('Biblos', 3),
+('Biblos', 4),
+('Biblos', 5),
+('Biblos', 6),
+('Biblos', 7),
+('Biblos', 8),
+('Biblos', 9),
+('Biblos', 10),
+('Biblos', 11),
+('Biblos', 12),
+('Biblos', 13),
+('Biblos', 14),
+('Hi life', 15);
+
+--
+-- Index för dumpade tabeller
+--
+
+--
+-- Index för tabell `ingredienser`
+--
+ALTER TABLE `ingredienser`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index för tabell `ingrediens_lista`
+--
+ALTER TABLE `ingrediens_lista`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `pizza` (`pizza`),
+  ADD KEY `ingrediens` (`ingrediens`);
+
+--
+-- Index för tabell `pizzerior`
+--
+ALTER TABLE `pizzerior`
+  ADD PRIMARY KEY (`name`);
+
+--
+-- Index för tabell `pizzor`
+--
+ALTER TABLE `pizzor`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index för tabell `pizzor_in_pizzerias`
+--
+ALTER TABLE `pizzor_in_pizzerias`
+  ADD PRIMARY KEY (`pizzeria`,`pizza`),
+  ADD KEY `pizzaAtPizzeria` (`pizza`);
+
+--
+-- AUTO_INCREMENT för dumpade tabeller
+--
+
+--
+-- AUTO_INCREMENT för tabell `ingredienser`
+--
+ALTER TABLE `ingredienser`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+--
+-- AUTO_INCREMENT för tabell `ingrediens_lista`
+--
+ALTER TABLE `ingrediens_lista`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+--
+-- AUTO_INCREMENT för tabell `pizzor`
+--
+ALTER TABLE `pizzor`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+--
+-- Restriktioner för dumpade tabeller
+--
+
+--
+-- Restriktioner för tabell `ingrediens_lista`
+--
+ALTER TABLE `ingrediens_lista`
+  ADD CONSTRAINT `ingrediens` FOREIGN KEY (`ingrediens`) REFERENCES `ingredienser` (`id`),
+  ADD CONSTRAINT `pizza` FOREIGN KEY (`pizza`) REFERENCES `pizzor` (`id`);
+
+--
+-- Restriktioner för tabell `pizzor_in_pizzerias`
+--
+ALTER TABLE `pizzor_in_pizzerias`
+  ADD CONSTRAINT `pizzaAtPizzeria` FOREIGN KEY (`pizza`) REFERENCES `pizzor` (`id`),
+  ADD CONSTRAINT `pizzerian` FOREIGN KEY (`pizzeria`) REFERENCES `pizzerior` (`name`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
