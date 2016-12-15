@@ -1,0 +1,156 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+#pageWrapper{
+	position: relative;
+	min-height: 100vh;
+}
+#mainMenu{
+	background-color: #DDD;
+	overflow: hidden;
+}
+#mainMenu ul{
+	display: none;
+}
+#mainMenu > img {
+	float: right;
+	margin-right: 5px;
+}
+#mainMenu > h1 {
+	float: left;
+	display: inline-block;
+	font-size: 3em;
+	line-height: 100px;
+}
+
+#mainFooter{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: #000;
+	color: #FFF;
+
+}
+/*---------------------------------------------------------------------------------------------------------*/
+/*-----------------------------------------------ingredienser----------------------------------------------*/
+/*---------------------------------------------------------------------------------------------------------*/
+#ingredienser{
+	overflow: hidden;
+}
+#ingredienser ul{
+	overflow: hidden;
+	list-style: none;
+	min-width: 75px;
+	width: 100%;
+	max-width: 14.285714285714285714285714285714%;
+	float: left;
+	box-sizing: border-box;
+	padding: 2px;
+	/*border-radius: 4px;*/
+}
+#ingredienser ul li{
+	box-sizing: border-box;
+	float: left;
+	padding: 2px;
+	/*margin: 1px;*/
+	/*border-radius: 3px;*/
+	min-width: 75px;
+	width: 49%;
+	cursor: pointer;
+	text-align: center;
+}
+#ingredienser ul li:nth-child(odd){
+	float: left;
+	clear: left;
+}
+#ingredienser ul li:nth-child(even){
+	float: right;
+	clear: right;
+}
+#ingredienser ul li input{
+	display: none;
+}
+#ingredienser ul li.checked{
+	background-color: rgba(0,0,0,0.25);
+}
+#reset{
+	padding: 5px;
+	margin: 2px;
+	font-weight: bold;
+	background: red;
+	/*border-radius: 3px;*/
+	display: inline-block;
+	float: left;
+	clear: both;
+}
+#ingredienser .lista_ingrediens{
+	padding: 5px;
+}
+#ingredienser .Sås{
+	background: #F5F5C6;
+}
+#ingredienser .Kött{
+	background: #E65845;
+}
+#ingredienser .Grönsaker{
+	background: #45e658;
+}
+#ingredienser .Ost{
+	background: #E6E145;
+}
+#ingredienser .Annat{
+	background: #a345e6;
+}
+#ingredienser .Kryddor{
+	background: #E6A345;
+}
+#ingredienser .Skaldjur{
+	background: #5845e6;
+}
+/*---------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------Pizzor-------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------------------*/
+#pizzor{
+	list-style: none;
+}
+#pizzor ul{
+	list-style: none;
+}
+#pizzor .pizza{
+	border: 1px solid #000;
+	overflow: hidden;
+	position: relative;
+	margin: 8px;
+	padding: 8px;
+}
+#pizzor .pizza img{
+	float: left;
+	height: 100px;
+}
+
+#pizzor .pizza div.karta{
+	width: 100px;
+	height: 100px;
+	background-color: rgb(25,200,6);
+	position: absolute;
+	top: 8px;
+	right: 8px;
+}
+#pizzor .pizza ul{
+	overflow: hidden;
+}
+#pizzor .pizza ul li{
+	float: left;
+	margin-right: 5px;
+}
+#pizzor .pizzaIngredients{
+	float: left;
+}
+/*---------------------------------------------------------------------------------------------------------*/
+/*------------------------------------------------pizzeria-------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------------------*/
+.pizzerior{
+	float: right;
+}
